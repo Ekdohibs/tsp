@@ -1,4 +1,3 @@
-
 def stoer_wagner(adj):
     """
        Takes adjacency matrix, and returns min cut and its weight.
@@ -61,6 +60,7 @@ def stoer_wagner_nx(graph, weight = 'weight', heap = None):
 
 if __name__ == '__main__':
     import networkx as nx
+    from random import randrange
     for _ in range(100):
         """G = nx.Graph()
         G.add_edge('x','a', weight=3)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         w, c = stoer_wagner_nx(G)
         print(w,c)
         assert (w == 4)"""
-        G = nx.barabasi_albert_graph(100,5)
+        G = nx.barabasi_albert_graph(100,randrange(2,10))
         w, _ = nx.stoer_wagner(G)
         w2, c = stoer_wagner_nx(G)
         k = 0
