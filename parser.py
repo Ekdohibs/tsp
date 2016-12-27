@@ -82,10 +82,10 @@ def parse_file(f):
     elif ewt == "GEO":
         PI = 3.141592
         def ll(u):
-            deg = int(u[0]+0.5)
+            deg = int(u[0])
             min = u[0]-deg
             lat = PI * (deg + 5.0 * min / 3.0 ) / 180.0
-            deg = int(u[1]+0.5)
+            deg = int(u[1])
             min = u[1]-deg
             long = PI * (deg + 5.0 * min / 3.0 ) / 180.0
             return (lat, long)
