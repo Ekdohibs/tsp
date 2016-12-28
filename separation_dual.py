@@ -125,7 +125,7 @@ class LinearDualTSP(object):
                 ll[i] = -1
         self.primal_ineqs.append(ll)
 
-    def solve(self):
+    def solve_old(self):
         x, fun = self.solve_primal()
         while True:
             while True:
@@ -167,6 +167,49 @@ class LinearDualTSP(object):
             for e in l:
                 self.add_edge(e)
             x, fun = self.solve_primal()
+
+        return x, fun
+
+    def solve(self):
+        n = 0
+        while n < 10:
+            while True:
+                eqs, cts, beta, dual_fun = self.solve_dual()
+                print(dual_fun)
+                #print(eqs, cts, beta)
+                l = []
+                for i in range(self.n):
+                    for j in range(i):
+                        if (i, j) in self.edge_mapping: continue
+                        s = eqs[i] + eqs[j]
+                        for r in range(len(self.cuts)):
+                            if (i in self.cuts[r][0]) != (j in self.cuts[r][0]):
+                                s += cts[r]
+                        if s > self.G[i][j]['weight']:
+                            l.append((i, j))
+                print(len(l), len(self.primal_obj))
+                if len(l) == 0:
+                    break
+                for e in l:
+                    self.add_edge(e)
+            
+            x, fun = self.solve_primal()
+            sG = subG(self.G, x, self.edge_mapping)
+            ccs = connected_components(sG)
+            print(ccs)
+            if len(ccs) > 1:
+                if len(ccs) == 2:
+                    self.add_cut((ccs[0], ccs[1]))
+                else:
+                    for i in range(len(ccs)):
+                        self.add_cut((ccs[i], sum([ccs[j] for j in range(len(ccs)) if i != j], [])))
+            else:
+                cutV, cut = stoer_wagner_nx(sG)
+                print(cutV, cut)
+                if(cutV >= 2):
+                    break
+                self.add_cut(cut)
+            n += 1
 
         return x, fun
 
