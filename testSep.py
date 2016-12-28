@@ -6,15 +6,16 @@ from separation import separation
 #name = "gr21.tsp" #2707
 #name = "eil51.tsp" #416.5, 7s
 #name = "gr24.tsp" #1224.5
-name = "st70.tsp" #623.5, 31s
+#name = "st70.tsp" #623.5, 31s
 #name = "gr48.tsp" #4769
-#name = "pr76.tsp" #98994.5
+name = "pr76.tsp" #98994.5
 
 with open("TSPLIB/" + name, "r") as f:
     Adj = parse_file(f)
     x, ival = separation(Adj)
     #print(x)
     print(ival)
+    #print(list(x))
     
     #for l in Adj:
     #    for c in l:
