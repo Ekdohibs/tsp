@@ -26,11 +26,12 @@ def kruskal(G):
             merge(root[a], root[b])
             spanningTree.add_edge(a, b, w)
 
-    return spanningTree, root[0]
+    return spanningTree, findRoot(0)
 
 def heuristic(G):
     spG, root = kruskal(G)
-    
+    tour = nx.Graph()
+
     seen = []
     size = 0
     
@@ -45,24 +46,26 @@ def heuristic(G):
         iInit = 0
         if(spG.neighbors(nd)[0] == anc):
             iInit += 1
-
+        
         nxt = spG.neighbors(nd)[iInit]
         size += spG[nd][nxt]['weight']
         leaf = walk(nxt, nd)
+        tour.add_edge(nd, nxt, weight = spG[nd][nxt]['weight'])
 
         for iNxt in range(iInit+1, len(spG.neighbors(nd))):
             nxt = spG.neighbors(nd)[iNxt]
             if(nxt != anc):
                 size += G[leaf][nxt]['weight']
                 leaf = walk(nxt, nd)
-        
+                tour.add_edge(nd, nxt, weight = spG[nd][nxt]['weight'])
+
         return leaf
 
     walk(root, -1)
     #print('root : ', root)
     #nx.draw(spG)
     #plt.show()
-    print('seen :', len(seen))
+    print('taille tour :', len(tour.edges()))
     #print('size :', size)
-    return size, spG
+    return size, tour
 

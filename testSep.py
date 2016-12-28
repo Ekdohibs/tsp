@@ -2,11 +2,14 @@ from parser import parse_file
 from separation import separation
 from separation_dual import LinearDualTSP
 from time import time
+import networkx as nx
+from heuristic_kruskal import heuristic
+
 #name = "burma14.tsp" #3001
 #name = "gr17.tsp" #1684
 #name = "gr21.tsp" #2707
-name = "eil51.tsp" #416.5, 7s
-#name = "gr24.tsp" #1224.5
+#name = "eil51.tsp" #416.5, 7s
+name = "gr24.tsp" #1224.5
 #name = "st70.tsp" #623.5, 31s
 #name = "gr48.tsp" #4769
 #name = "pr76.tsp" #98994.5
@@ -19,6 +22,14 @@ name = "eil51.tsp" #416.5, 7s
 
 with open("TSPLIB/" + name, "r") as f:
     Adj = parse_file(f)
+    G = nx.Graph()
+    for l in range(len(Adj)):
+        for c in range(l):
+             G.add_edge(l, c, weight = Adj[l][c])
+    t0 = time()
+    ivalh, _ = heuristic(G)
+    th = time() - t0
+
     t0 = time()
     x, ival = separation(Adj)
     #x, ival = 0,0
@@ -27,6 +38,7 @@ with open("TSPLIB/" + name, "r") as f:
     t0 = time()
     x2, ival2 = LinearDualTSP(Adj).solve()
     t2 = time() - t0
+    print('heuristic : ', ivalh, th)
     print("Primal:", ival, "time", t1)
     print("Dual:", ival2, "time", t2)
     #print(x)
@@ -36,4 +48,4 @@ with open("TSPLIB/" + name, "r") as f:
     #for l in Adj:
     #    for c in l:
     #        print(c, end=' ')
-    #    print(' ')
+#    print(' ')
