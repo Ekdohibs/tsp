@@ -32,12 +32,8 @@ def heuristic(G):
     spG, root = kruskal(G)
     tour = nx.Graph()
 
-    seen = []
-    size = 0
-    
     def walk(nd, anc):
-        nonlocal size, seen
-        seen.append(nd)
+        nonlocal tour, G
         #print('w', nd, len(spG[nd]), anc)
 
         if(nd != root and len(spG[nd]) == 1): #only ancestor
@@ -48,24 +44,29 @@ def heuristic(G):
             iInit += 1
         
         nxt = spG.neighbors(nd)[iInit]
-        size += spG[nd][nxt]['weight']
+        tour.add_edge(nd, nxt, weight = G[nd][nxt]['weight'])
+        
         leaf = walk(nxt, nd)
-        tour.add_edge(nd, nxt, weight = spG[nd][nxt]['weight'])
 
         for iNxt in range(iInit+1, len(spG.neighbors(nd))):
             nxt = spG.neighbors(nd)[iNxt]
             if(nxt != anc):
-                size += G[leaf][nxt]['weight']
+                #arc de remonté :
+                tour.add_edge(leaf, nxt, weight = G[leaf][nxt]['weight'])
+                #on redescend dans l'arbre
                 leaf = walk(nxt, nd)
-                tour.add_edge(nd, nxt, weight = spG[nd][nxt]['weight'])
 
         return leaf
 
-    walk(root, -1)
-    #print('root : ', root)
-    #nx.draw(spG)
+    leaf = walk(root, -1)
+    tour.add_edge(root, leaf, weight = G[leaf][root]['weight'])
+
+    size = 0
+    for d, a in tour.edges():
+        size += tour[d][a]['weight']
+    #print('taille tour :', len(tour.edges()))
+    #nx.draw(tour)
     #plt.show()
-    print('taille tour :', len(tour.edges()))
     #print('size :', size)
     return size, tour
 

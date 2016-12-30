@@ -2,6 +2,8 @@ import networkx as nx
 from scipy.optimize import linprog
 import numpy as np
 from min_cut import stoer_wagner_nx
+from heuristic_kruskal import heuristic
+
 
 eps = 1e-9
 def connected_components(G):
@@ -56,9 +58,13 @@ class LinearDualTSP(object):
         self.dual_ineqs = []
         self.dual_ineqs_b = []
 
+        _, H = heuristic(self.G)
+    
+        for e in H.edges():
+            self.add_edge(e)
         # TODO: init with good heuristic
-        for i in range(self.n):
-            self.add_edge((i, (i + 1) % self.n))
+        #for i in range(self.n):
+        #    self.add_edge((i, (i + 1) % self.n))
 
     def solve_primal(self):
         #print(len(self.primal_eqs), self.n, [len(x) for x in self.primal_eqs])
