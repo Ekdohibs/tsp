@@ -2,7 +2,7 @@ import networkx as nx
 from scipy.optimize import linprog
 import numpy as np
 from min_cut import stoer_wagner_nx
-from heuristic_kruskal import heuristic
+from nearest_neig import nearN
 
 
 eps = 1e-9
@@ -58,7 +58,7 @@ class LinearDualTSP(object):
         self.dual_ineqs = []
         self.dual_ineqs_b = []
 
-        _, H = heuristic(self.G)
+        _, H = nearN(self.G)
     
         for e in H.edges():
             self.add_edge(e)
