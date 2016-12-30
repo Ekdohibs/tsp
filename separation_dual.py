@@ -35,7 +35,7 @@ def subG(G, x, extToEdge):
     for (d, a) in G.edges():
         if (d,a) in extToEdge:
             if(x[ extToEdge[(d, a)] ] != 0):
-                subG.add_edge(d, a, weight = G[d][a]['weight'] * x[ extToEdge[(d, a)] ])
+                subG.add_edge(d, a, weight = x[ extToEdge[(d, a)] ])
     
     return subG
 
@@ -206,7 +206,7 @@ class LinearDualTSP(object):
             else:
                 cutV, cut = stoer_wagner_nx(sG)
                 print(cutV, cut)
-                if(cutV >= 2):
+                if(cutV >= 2-eps):
                     break
                 self.add_cut(cut)
             n += 1

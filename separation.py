@@ -37,8 +37,7 @@ def subG(G, x, extToEdge):
     subG = nx.Graph()
     for (d, a) in G.edges():
         if(x[ extToEdge[(d, a)] ] != 0):
-            subG.add_edge(d, a, weight = G[d][a]['weight'] * x[ extToEdge[(d, a)] ])
-    
+            subG.add_edge(d, a, weight = max(0.,x[ extToEdge[(d, a)] ]))
     return subG
 
 def addSubTour(A_ub, b_ub, G, cut, extToEdge):
@@ -105,7 +104,7 @@ def separation(Adj):
         else:
             cutV, cut = stoer_wagner_nx(sG)
             print(cutV, cut)
-            if(cutV >= 2):
+            if(cutV >= 2-eps):
                 break
             addSubTour(A_ub, b_ub, G, cut, extToEdge)
         
@@ -113,6 +112,5 @@ def separation(Adj):
         x = res.x
         
         n += 1
-
 
     return x, res.fun

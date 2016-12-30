@@ -42,7 +42,7 @@ def stoer_wagner(adj):
                 take[best] = True
     return best_cut_weight, best_cut
 
-def stoer_wagner_nx(graph, weight = 'weight', heap = None):
+def stoer_wagner_nx(graph, weight = 'weight'):
     nodes = graph.nodes()
     d = {}
     for i in range(len(nodes)):
