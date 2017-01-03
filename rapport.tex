@@ -1,0 +1,78 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[francais]{babel} 
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{textcomp}
+\usepackage{stmaryrd}
+
+\usepackage{tikz}
+\usetikzlibrary {positioning}
+
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\textwidth 173mm \textheight 235mm \topmargin -50pt \oddsidemargin
+-0.45cm \evensidemargin -0.45cm
+
+\newcommand{\eqdef}{\stackrel{\mathclap{\normalfont\small\mbox{def}}}{=}}
+\newcommand{\code}[1]{{\fontfamily{pcr}\selectfont #1}}
+
+\newcommand{\htodo}[1]{\begin{huge}\colorbox{yellow}{\textcolor{red}{\textbf{TODO~:} #1}}\end{huge}}
+\newcommand{\todo}[1]{\colorbox{yellow}{\textcolor{red}{\textbf{TODO~:} #1}}}
+
+\newcommand{\ldblbrack}{\text{\textlbrackdbl}}
+\newcommand{\rdblbrack}{\text{\textrbrackdbl}}
+
+\title{Optimisation combinatoire et convexe~: projet voyageur de commerce}
+\author{Nathanaël Courant et David Saulpic}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Commentaires généraux}
+
+\section{Résultats sur TSPLIB}
+
+\section{Réponses aux questions}
+
+Même avec les contraintes supplémentaires sur les coupes, le programme linéaire n'est pas entier~: en effet, considérons le graphe suivant~:
+
+\begin {center}
+\begin {tikzpicture}[,auto ,node distance =2 cm and 3cm ,on grid ,
+semithick ,
+state/.style ={ circle ,top color =white , bottom color = white ,
+draw,, minimum width =1 cm}]
+\node[state] (C) {$1$};
+\node[state] (A) [above left=of C] {$0$};
+\node[state] (B) [above right =of C] {$2$};
+\node[state] (D) [below=of C] {$3$};
+\node[state] (E) [below left=of D] {$4$};
+\node[state] (F) [below right=of D] {$5$};
+\path (C) edge node {$1 | 1/2$} (A);
+\path (C) edge node {$1 | 1/2$} (B);
+\path (B) edge node {$1 | 1/2$} (A);
+\path (C) edge node {$0 | 1$} (D);
+\path (A) edge node {$0 | 1$} (E);
+\path (B) edge node {$0 | 1$} (F);
+\path (E) edge node {$0 | 1/2$} (D);
+\path (F) edge node {$0 | 1/2$} (E);
+\path (D) edge node {$0 | 1/2$} (F);
+\end{tikzpicture}
+\end{center}
+
+Les annotations $a|b$ sur les arêtes siginifient que le coût de l'arête est de $a$, et que la variable $x_e$ correspondante a pour valeur $b$ dans la solution optimale du programme linéaire. On s'aperçoit que la valeur optimale de ce programme linéaire est donc de $3/2$~: il ne peut donc pas être entier.
+
+On peut également remarquer que pour toute coupe $S$ de $V$, et pour toute solution entière $x$ du problème initial, $\sum_{e\in\delta(S)} x_e$ est paire. En particulier, si $|\delta(S)|$ est impair, $\sum_{e\in\delta(S)} x_e \leq |\delta(S)| - 1$. On vient donc d'obtenir une classe d'inégalités linéaires satisfaites par toute solution entière du problème, mais pas par les solutions fractionnaires comme on a pu le constater avec l'exemple ci-dessus.
+
+\end{document}
