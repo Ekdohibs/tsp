@@ -198,7 +198,9 @@ class LinearDualTSP(object):
                     break
                 for e in l:
                     self.add_edge(e)
-            
+
+            print("Dual sol should be the same as primal")
+            print("Dual sol:", dual_fun)
             x, fun = self.solve_primal()
             print("Primal sol:", fun)
             sG = subG(self.G, x, self.edge_mapping)
