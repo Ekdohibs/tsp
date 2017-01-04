@@ -41,9 +41,96 @@
 \maketitle
 
 \section{Commentaires généraux}
+Nous avons codé deux heuristiques : 
+
+\begin{description}
+\item[nearest\_neig.py] Une gloutonne qui consiste à partir d'un noeud aléatoire, choisir le plus proche voisin de ce noeud, et itérer ce procédé (en considérant seulement les voisins non encore visité).
+
+\item[heuristic\_kruskal.py] Une autre qui part d'un arbre couvrant minimal et qui construit le cycle associé au parcours en profondeur de cet arbre.
+
+\end{description}
+La première des deux heuristiques est la meilleure dans la grande majorité des exemples que nous avons testé. C'est donc elle que nous utilisons pour initialiser la recherche dans le programme linéaire.
 
 \section{Résultats sur TSPLIB}
 
+\begin{tabular}{c|c|c|c|c|}
+test & nearest\_neig & heuristic\_kruskal & Primal & Dual\\
+burma14.tsp & 4048 & 4271, 0s & 3323.0, 0s & 3323.0, 0\\
+gr17.tsp 
+   & 2187
+   &  2523
+    & 2085.0, 0.6s
+    & 2085.0, 0.6s\\
+gr21.tsp
+   & 3333
+   &  3841
+    & 2707.0, 0.3s
+    & 2707.0, 0.2s\\
+eil51.tsp
+   & 511
+   &  542
+    & 422.5, 28.9s
+    & 422.5, 3.6s\\
+gr24.tsp
+	& 1553   
+	& 1660
+    & 1272.0, 0.8s
+    & 1272.0, 0.7s\\
+gr48.tsp
+   & 6098
+   &  7297
+    & 4959.0, 43s
+    & 4959.0, 8.5s\\
+dantzig42.tsp
+   & 956
+   &  960
+    & 697.0, 16s
+    & 697.0, 6.6s\\
+brazil58.tsp
+   & 30774
+   &  29438
+    & 25354.5, 84s
+    & 25354.5, 21s\\
+berlin52.tsp
+   & 8980
+   &  10096
+    & 7542.0, 15s
+    & 7542.0, 7s\\
+bayg29.tsp
+   & 2005
+   &  2117 
+    & 1608.0, 4.4s
+    & 1608.0, 1.8s\\
+bays29.tsp
+   & 2258
+   &  2514
+    & 2013.5, 2.7
+    & 2013.5, 0.9s\\
+ulysses22.tsp
+   & 10586
+   &  8399
+    & 7013.0, 1.6s
+    & 7013.0, 1.7s\\
+st70.tsp
+   & 830
+   & -
+   & -
+   & 670.0, 31.8s\\
+pr76.tsp
+   & 153462
+   & -
+   &  -
+    & 105120.0, 74s\\
+rd100.tsp & - & - & - & 7873, 186s\\
+pr107.tsp & - & - & - &44176, 345s\\
+bier127.tsp & - & - & - & 117164.5, 692s\\
+ch150.tsp & - & - & - & 6476.5, * \\%(stopé : limite d'itérations atteinte pour le solveur lp) 
+brg180.tsp & - & - & - & 961,42, 24349s \\
+d198.tsp & - & - & - & 15490, *\\ %(7 itérations, bug du solver LP après)
+
+\end{tabular}
+
+* : pour ces deux tests, le solver LP que nous utilisons (scipy.otimize) a eu un problème. La valeur que nous donnons est donc la dernière borne inférieure prouvée que nous avons.
 \section{Réponses aux questions}
 
 Même avec les contraintes supplémentaires sur les coupes, le programme linéaire n'est pas entier~: en effet, considérons le graphe suivant~:

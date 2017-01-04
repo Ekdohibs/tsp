@@ -1,0 +1,76 @@
+rd100.tsp ** : 7873 time 186 
+pr107.tsp ****: 44176 time 345
+bier127.tsp *: 117164.5 time 692
+ch150.tsp ***: 6476.5 (stopé : limite d'itérations atteinte pour le solveur lp) 
+brg180.tsp **: 961,42 time 24349s 
+d198.tsp **** : 15490 (7 itérations, bug du solver LP après)
+
+burma14.tsp : 
+   Glouton plus proche voisin : 4048
+   heuristique kruskal :  4271 0.0003790855407714844
+   Primal : 3323.0 time 0.1563112735748291
+   Dual : 3323.0 time 0.15846467018127441
+gr17.tsp :
+   Glouton plus proche voisin : 2187
+   heuristique kruskal :  2523 0.0005087852478027344
+   Primal : 2085.0 time 0.5945298671722412
+   Dual : 2085.0 time 0.5703363418579102
+gr21.tsp
+   Glouton plus proche voisin : 3333
+   heuristique kruskal :  3841 0.0011670589447021484
+   Primal : 2707.0 time 0.2712860107421875
+   Dual : 2707.0 time 0.2201402187347412
+eil51.tsp
+   Glouton plus proche voisin : 511
+   heuristique kruskal :  542 0.005579233169555664
+   Primal : 422.5 time 28.924542665481567
+   Dual : 422.5 time 3.6473066806793213
+gr24.tsp
+   Glouton plus proche voisin : 1553
+   heuristique kruskal :  1660 0.0020177364349365234
+   Primal : 1272.0 time 0.7710311412811279
+   Dual : 1272.0 time 0.6579604148864746
+st70.tsp
+   Glouton plus proche voisin : 830
+   heuristique kruskal :  866 0.004894733428955078
+   Dual : 670.0 time 31.761693000793457
+gr48.tsp
+   Glouton plus proche voisin : 6098
+   heuristique kruskal :  7297 0.004486560821533203
+   Primal : 4959.0 time 43.007875204086304
+   Dual : 4959.0 time 8.530518054962158
+pr76.tsp
+   Glouton plus proche voisin : 153462
+   heuristique kruskal :  140738 0.0062351226806640625
+   Dual : 105120.0 time 73.70773673057556
+dantzig42.tsp
+   Glouton plus proche voisin : 956
+   heuristique kruskal :  960 0.002002239227294922
+   Primal : 697.0 time 16.052258253097534
+   Dual : 697.0 time 6.627312183380127
+brazil58.tsp
+   Glouton plus proche voisin : 30774
+   heuristique kruskal :  29438 0.0036001205444335938
+   Primal : 25354.5 time 84.17512845993042
+   Dual : 25354.5 time 20.82811713218689
+berlin52.tsp
+   Glouton plus proche voisin : 8980
+   heuristique kruskal :  10096 0.0029449462890625
+   Primal : 7542.0 time 15.456992387771606
+   Dual : 7542.0 time 7.064984560012817
+bayg29.tsp
+   Glouton plus proche voisin : 2005
+   heuristique kruskal :  2117 0.0028018951416015625
+   Primal : 1608.0 time 4.412356376647949
+   Dual : 1608.0 time 1.8447628021240234
+bays29.tsp
+   Glouton plus proche voisin : 2258
+   heuristique kruskal :  2514 0.0023932456970214844
+   Primal : 2013.5 time 2.6914455890655518
+   Dual : 2013.5 time 0.8905093669891357
+ulysses22.tsp
+   Glouton plus proche voisin : 10586
+   heuristique kruskal :  8399 0.0007138252258300781
+   Primal : 7013.0 time 1.6460027694702148
+   Dual : 7013.0 time 1.712045431137085
+
